@@ -1,9 +1,11 @@
+import java.util.List;
+
 public class Act {
     private String name;
-    private String[] map;
+    private List<String> map;
     private int time;
 
-    public Act(String name, String[] map, int time) {
+    public Act(String name, List<String> map, int time) {
         this.name = name;
         this.map = map;
         this.time = time;
@@ -17,11 +19,11 @@ public class Act {
         this.name = name;
     }
 
-    public String[] getMap() {
+    public List<String> getMap() {
         return map;
     }
 
-    public void setMap(String[] map) {
+    public void setMap(List<String> map) {
         this.map = map;
     }
 
@@ -31,5 +33,13 @@ public class Act {
 
     public void setTime(int time) {
         this.time = time;
+    }
+    @Override
+    public String toString() {
+        return "{" +
+                "name='" + name + '\'' +
+                ", culoare='" + map + '\'' +
+                ", jante='" + time + '\'' +
+                '}';
     }
 }
