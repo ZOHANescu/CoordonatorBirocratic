@@ -1,11 +1,1 @@
-[
-  {
-    "name": "ana",
-    "time": 30,
-    "map": [
-      "alina",
-      "diana",
-      "maria"
-    ]
-  }
-]
+[{"name":"ana","time":30,"map":["alina","diana","maria"]},{"name":"ana","time":56,"map":["alina","alina1","alina3"]},{"name":"ana","time":30,"map":["alina","diana","maria"]},{"name":"ana","time":30,"map":["alina","diana","maria"]},{"name":"ana","time":30,"map":["alina","diana","maria"]},{"name":"ana","time":30,"map":["alina","diana","maria"]},{"name":"ana","time":30,"map":["alina","diana","maria"]},{"name":"ana","time":30,"map":["alina","diana","maria"]},{"name":"ana","time":30,"map":["alina","diana","maria"]},{"name":"ana","time":30,"map":["alina","diana","maria"]},{"name":"ana","time":30,"map":["alina","diana","maria"]},{"name":"ana","time":30,"map":["alina","diana","maria"]},{"name":"ana","time":30,"map":["alina","diana","maria"]},{"name":"ana","time":30,"map":["alina","diana","maria"]},{"name":"ana","time":30,"map":["alina","diana","maria"]},{"name":"ana","time":30,"map":["alina","diana","maria"]},{"name":"ana","time":30,"map":["alina","diana","maria"]},{"name":"ana","time":30,"map":["alina","diana","maria"]},{"name":"ana","time":30,"map":["alina","diana","maria"]},{"name":"ana","time":30,"map":["alina","diana","maria"]},{"name":"ana","time":30,"map":["alina","diana","maria"]},{"name":"ana","time":30,"map":["alina","diana","maria"]},{"name":"ana","time":30,"map":["alina","diana","maria"]},{"name":"ana","time":30,"map":["alina","diana","maria"]},{"name":"ana","time":30,"map":["alina","diana","maria"]},{"name":"ana","time":30,"map":["alina","diana","maria"]},{"name":"ana","time":30,"map":["alina","diana","maria"]},{"name":"ana","time":30,"map":["alina","diana","maria"]}]

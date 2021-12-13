@@ -5,6 +5,7 @@ import org.json.simple.parser.ParseException;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -19,7 +20,7 @@ public class ClientsServices {
             Object p;
             JSONParser parser = new JSONParser();
             try{
-                FileReader readFile = new FileReader("src/main/db/acts.json");
+                FileReader readFile = new FileReader("C:\\Users\\madal\\IdeaProjects\\ggggg\\src\\main\\db\\acts.json");
                 BufferedReader read = new BufferedReader(readFile);
                 p = parser.parse(read);
                 if(p instanceof JSONArray)
@@ -30,22 +31,25 @@ public class ClientsServices {
             } catch (ParseException | IOException ex) {
                 ex.printStackTrace();
             }
-
         }
 
-        public static void read () {
+        public static void read1 () {
 
             JSONParser parser1 = new JSONParser();
 
-            try (Reader reader = new FileReader("src/main/db/acts.json")) {
+            try (FileReader reader = new FileReader("C:\\Users\\madal\\IdeaProjects\\ggggg\\src\\main\\db\\acts.json")) {
                 JSONArray jsonArray = (JSONArray) parser1.parse(reader);
 
                 Iterator<JSONObject> it = jsonArray.iterator();
                 while (it.hasNext()) {
                     JSONObject obj = it.next();
+                    String l1 = obj.get("map").toString();
+                    List<String> l2=new ArrayList<>() ;
+                    l2.add(l1);
+                    int i1 = Integer.parseInt(obj.get("time").toString());
+                    Act act23 = new Act(obj.get("name").toString(), l2,i1);
+                    acts.add(act23);
 
-                    Act act = new Act(obj.get("name").toString(),(List<String>) obj.get("map"),Integer.parseInt((String) obj.get("time")));
-                    acts.add(act);
 
                 }
             } catch (IOException e) {
@@ -59,7 +63,7 @@ public class ClientsServices {
         public static void  addAct(String name, List<String> map, int time)  {
 
             loadActsFromFile();
-            read();
+            read1();
 
 
             //Punem un nou obiect in fisier
@@ -71,8 +75,7 @@ public class ClientsServices {
             actList.add(act);
 
 
-            try (FileWriter file = new FileWriter("src/main/db/acts.json")) {
-
+            try (FileWriter file = new FileWriter("C:\\Users\\madal\\IdeaProjects\\ggggg\\src\\main\\db\\acts.json")) {
                 file.write(actList.toString());
                 file.flush();
 

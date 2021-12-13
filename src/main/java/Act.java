@@ -38,8 +38,8 @@ public class Act {
     public String toString() {
         return "{" +
                 "name='" + name + '\'' +
-                ", culoare='" + map + '\'' +
-                ", jante='" + time + '\'' +
+                ", map='" + map + '\'' +
+                ", time='" + time + '\'' +
                 '}';
     }
 }
