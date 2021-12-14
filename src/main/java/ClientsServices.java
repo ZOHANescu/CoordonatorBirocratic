@@ -33,7 +33,7 @@ public class ClientsServices {
             }
         }
 
-        public static void read1 () {
+        public static ArrayList<Act> read1 () {
 
             JSONParser parser1 = new JSONParser();
 
@@ -57,7 +57,7 @@ public class ClientsServices {
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-
+            return acts;
         }
 
         public static void  addAct(String name, List<String> map, int time)  {

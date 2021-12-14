@@ -1,10 +1,11 @@
 import java.util.ArrayList;
+import java.util.List;
 
 public class Ghiseu {
 
     private boolean state ;
     private ArrayList<Client> clients = new ArrayList<>();
-    private ArrayList<Act> acts = new ArrayList<>();
+    private List<Act> acts = new ArrayList<>();
 
     public Ghiseu(boolean state, ArrayList<Client> clients, ArrayList<Act> acts) {
         this.state = state;
@@ -36,7 +37,7 @@ public class Ghiseu {
         this.clients = clients;
     }
 
-    public ArrayList<Act> getActs() {
+    public List<Act> getActs() {
         return acts;
     }
 

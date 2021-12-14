@@ -1,12 +1,15 @@
 import java.util.ArrayList;
+import java.util.List;
 
 public class Birou {
     private String name ;
-    private ArrayList<Ghiseu> ghiseus  = new ArrayList<>();
+    private int numberOfGhisues ;
+    private List<Ghiseu> ghiseus  = new ArrayList<>();
 
-    public Birou(String name, ArrayList<Ghiseu> ghiseus) {
+    public Birou(String name,List<Ghiseu> ghiseus,int nb) {
         this.name = name;
         this.ghiseus = ghiseus;
+        this.numberOfGhisues = nb;
     }
     public void addGhiseus(Ghiseu g){
         this.ghiseus.add(g);
@@ -15,15 +18,23 @@ public class Birou {
         return name;
     }
 
+    public int getNumberOfGhisues() {
+        return numberOfGhisues;
+    }
+
+    public void setNumberOfGhisues(int numberOfGhisues) {
+        this.numberOfGhisues = numberOfGhisues;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
 
-    public ArrayList<Ghiseu> getGhiseus() {
+    public List<Ghiseu> getGhiseus() {
         return ghiseus;
     }
 
-    public void setGhiseus(ArrayList<Ghiseu> ghiseus) {
+    public void setGhiseus(List<Ghiseu> ghiseus) {
         this.ghiseus = ghiseus;
     }
 }
