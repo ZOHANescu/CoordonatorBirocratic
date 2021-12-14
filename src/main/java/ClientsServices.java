@@ -4,10 +4,9 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
+
+import static java.lang.Object.*;
 
 public class ClientsServices {
 
@@ -44,11 +43,9 @@ public class ClientsServices {
                 Iterator<JSONObject> it = jsonArray.iterator();
                 while (it.hasNext()) {
                     JSONObject obj = it.next();
-                    String l1 = obj.get("map").toString();
-                    List<String> l2=new ArrayList<>() ;
-                    l2.add(l1);
+                    List<String> l1 = (List<String>) obj.get("map");
                     int i1 = Integer.parseInt(obj.get("time").toString());
-                    Act act23 = new Act(obj.get("name").toString(), l2,i1);
+                    Act act23 = new Act(obj.get("name").toString(),l1 ,i1);
                     acts.add(act23);
 
 
@@ -74,7 +71,7 @@ public class ClientsServices {
             act.put("time",time);
             act.put("map",map);
             actList.add(act);
-
+            System.out.println("json " + actList);
 
             try (FileWriter file = new FileWriter("C:\\Users\\madal\\IdeaProjects\\ggggg\\src\\main\\db\\acts.json")) {
                 file.write(actList.toString());

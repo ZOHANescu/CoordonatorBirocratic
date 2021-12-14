@@ -1,5 +1,6 @@
 import java.lang.*;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class Client extends Thread {
@@ -7,63 +8,70 @@ public class Client extends Thread {
     private boolean hAct = false;
 
 
-    public void searchAct(Act act11){
-        for (int i = 0; i < act11.getMap().size(); i++) {
-            if(this.wAct.getMap().isEmpty()){
-                for (int j = 0; j <Menu.b1.getNumberOfGhisues() ; j++) {
-                    for (int k = 0; k <Menu.b1.getGhiseus().get(j).getActs().size() ; k++) {
-                        if(Menu.b1.getGhiseus().get(j).getActs().get(k).getName().equals(act11.getName())){
-                            Menu.b1.getGhiseus().get(j).getClients().add(this);
-                            Simulation.startSimulation(Menu.b1);
-                            while(Menu.b1.getGhiseus().get(j).getClients().get(0)!=this){
-                                continue;
-                            }
-                            Menu.b1.getGhiseus().get(j).getClients().remove(0);
-                            Simulation.startSimulation(Menu.b1);
-                        }
-                    }
-                }
-            }else{
-                ArrayList<Act> a10 = ClientsServices.read1();
-                for (int j = 0; j <act11.getMap().size() ; j++) {
-                    for (int k = 0; k <a10.size() ; k++) {
-                        if(act11.getMap().get(j).equals(a10.get(k).getName())){
-                            searchAct(a10.get(k));
-                        }
-                    }
+    public void searchAct(Act act11) throws InterruptedException {
+        System.out.println(1);
+        System.out.println("Size " + act11.getMap().size());
+        if (act11.getMap().isEmpty()) {
+            System.out.println(3);
+            for (int j = 0; j < Menu.b1.getNumberOfGhisues(); j++) {
+                System.out.println(4);
+                for (int k = 0; k < Menu.b1.getGhiseus().get(j).getActs().size(); k++) {
+                    System.out.println(5);
+                    if (Menu.b1.getGhiseus().get(j).getActs().get(k).getName().equals(act11.getName())) {
 
+                        Menu.b1.getGhiseus().get(j).getClients().add(this);
+                        Menu.clrscr();
+                        Simulation.startSimulation(Menu.b1);
+                        while (Menu.b1.getGhiseus().get(j).getClients().get(0) != this) ;
+                        Thread.sleep(act11.getTime() *100 );
+                        Menu.b1.getGhiseus().get(j).getClients().remove(0);
+                        Menu.clrscr();
+                        Simulation.startSimulation(Menu.b1);
+                        Menu.clrscr();
+                    }
                 }
             }
+        } else {
+            ArrayList<Act> a10 = ClientsServices.read1();
+            System.out.println("a10" + a10.toString());
+            for (int j = 0; j < act11.getMap().size(); j++) {
+                System.out.println("a11");
+                for (int k = 0; k < a10.size(); k++) {
+                    System.out.println("a12");
+                    if (act11.getMap().get(j).equals(a10.get(k).getName())) {
+                        System.out.println("A13");
+                        searchAct(a10.get(k));
+                    }
+                }
 
+            }
         }
-        this.hAct = true;
-    }
+
+
+
+    hAct =true;
+}
 
 
     public void run() {
+        System.out.println("Act run " + wAct.toString());
         while (!hAct) {
-            searchAct(this.wAct);
-
-            Client c1 = new Client();
-            for (int i = 0; i < Menu.b1.getNumberOfGhisues(); i++) {
-                Menu.b1.getGhiseus().get(i).getClients().add(c1);
-            }
-            Simulation.startSimulation(Menu.b1);
-            Menu.clrscr();
-            for (int i = 0; i < Menu.b1.getNumberOfGhisues(); i++) {
-                Menu.b1.getGhiseus().get(i).getClients().remove(0);
-            }
-            Simulation.startSimulation(Menu.b1);
-            Menu.clrscr();
-
+        try {
+            searchAct(wAct);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         }
     }
 
     public Client() {
-        Random random =  new Random();
+        Random rand = new Random();
         ArrayList<Act> a10 = ClientsServices.read1();
-        int i = random.nextInt(a10.size());
-        this.wAct = a10.get(i);
+        System.out.println(a10.toString());
+        int i = rand.nextInt(a10.size());
+        System.out.println("random " + i);
+        wAct = a10.get(i);
+        System.out.println(wAct.toString());
     }
 
     public Act getwAct() {

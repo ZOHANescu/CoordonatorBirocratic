@@ -112,11 +112,12 @@ public class Menu {
                     Client c2 = new Client();
                     Client c3 = new Client();
                     Client c4 = new Client();
+
                     c1.start();
                     c2.start();
 
-                    //c3.start();
-                    //c4.start();
+                    c3.start();
+                    c4.start();
 
                    // Simulation.startSimulation(b1);
                     break;

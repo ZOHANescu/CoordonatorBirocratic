@@ -1,83 +1,33 @@
 [
   {
-    "name": "act1",
-    "time": 45,
+    "name": "act0",
+    "time": 23,
     "map": [
-      "act0",
-      "act3",
-      "act5"
+      "act1",
+      "act2"
     ]
   },
   {
-    "name": "act2",
+    "name": "act1",
     "time": 23,
     "map": []
   },
   {
-    "name": "act0",
+    "name": "act2",
+    "time": 23,
+    "map": [
+      "act3",
+      "act4"
+    ]
+  },
+  {
+    "name": "act3",
     "time": 23,
     "map": []
   },
   {
     "name": "act4",
-    "time": 34,
-    "map": [
-      "ana",
-      "maria"
-    ]
-  },
-  {
-    "name": "act1",
-    "time": 45,
-    "map": [
-      "act0",
-      "act3",
-      "act5"
-    ]
-  },
-  {
-    "name": "act2",
     "time": 23,
     "map": []
-  },
-  {
-    "name": "act0",
-    "time": 23,
-    "map": []
-  },
-  {
-    "name": "act4",
-    "time": 34,
-    "map": [
-      "ana",
-      "maria"
-    ]
-  },
-  {
-    "name": "act1",
-    "time": 45,
-    "map": [
-      "act0",
-      "act3",
-      "act5"
-    ]
-  },
-  {
-    "name": "act2",
-    "time": 23,
-    "map": []
-  },
-  {
-    "name": "act0",
-    "time": 23,
-    "map": []
-  },
-  {
-    "name": "act4",
-    "time": 34,
-    "map": [
-      "ana",
-      "maria"
-    ]
   }
 ]
