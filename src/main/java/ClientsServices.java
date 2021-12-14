@@ -31,10 +31,11 @@ public class ClientsServices {
             } catch (ParseException | IOException ex) {
                 ex.printStackTrace();
             }
+
         }
 
         public static ArrayList<Act> read1 () {
-
+            acts.clear();
             JSONParser parser1 = new JSONParser();
 
             try (FileReader reader = new FileReader("C:\\Users\\madal\\IdeaProjects\\ggggg\\src\\main\\db\\acts.json")) {
