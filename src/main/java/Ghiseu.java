@@ -4,11 +4,23 @@ import java.util.List;
 public class Ghiseu {
 
     private boolean state ;
+    private String name;
     private ArrayList<Client> clients = new ArrayList<>();
     private List<Act> acts = new ArrayList<>();
 
-    public Ghiseu(boolean state, ArrayList<Client> clients, ArrayList<Act> acts) {
+
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Ghiseu(boolean state, String name, ArrayList<Client> clients, List<Act> acts) {
         this.state = state;
+        this.name = name;
         this.clients = clients;
         this.acts = acts;
     }
@@ -43,5 +55,15 @@ public class Ghiseu {
 
     public void setActs(ArrayList<Act> acts) {
         this.acts = acts;
+    }
+
+    @Override
+    public String toString() {
+        return "Ghiseu{" +
+                "state=" + state +
+                ", name='" + name + '\'' +
+                ", clients=" + clients +
+                ", acts=" + acts +
+                '}';
     }
 }

@@ -5,34 +5,20 @@ import java.lang.*;
 
 
 public class Menu {
+    public static Birou b1 = new Birou(null, null, 0);
+    public static List<Ghiseu> gs = new ArrayList<>();
+    public static boolean t = true;
+
     public static void clrscr() {
-
-        //Clears Screen in java
-
         try {
-
             if (System.getProperty("os.name").contains("Windows"))
 
                 new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-
             else
-
                 Runtime.getRuntime().exec("clear");
-
         } catch (IOException | InterruptedException ex) {
         }
-
     }
-
-    public static Birou b1 = new Birou(null, null, 0);
-    public static Birou b2 = new Birou(null, null, 0);
-    public static Birou b3 = new Birou(null, null, 0);
-
-    public static List<Ghiseu> gs = new ArrayList<>();
-
-    public static List<Ghiseu> lg1 = new ArrayList<>();
-
-    public static boolean t = true;
 
     public static void menu() throws IOException {
 
@@ -40,10 +26,8 @@ public class Menu {
             System.out.println("Meniu\n");
             System.out.println("1.Add act\n");
             System.out.println("2.Setup Birou\n");
-            System.out.println("3.Setup Ghiseu\n");
-            System.out.println("4.Start simulation\n");
-            System.out.println("4.Stop\n");
-            System.out.println("5.Exit\n");
+            System.out.println("3.Start simulation\n");
+            System.out.println("4.Exit\n");
 
             Scanner scanchoice = new Scanner(System.in);
             int choiceentry = scanchoice.nextInt();
@@ -74,54 +58,53 @@ public class Menu {
                     b1.setName(b);
                     System.out.println("Enter number of ghiseus");
                     int nr = sc.nextInt();
-                    b1.setNumberOfGhisues(nr);
                     ArrayList<Act> a = ClientsServices.read1();
-                    System.out.println(a);
-                    System.out.println("nr ghisee " +b1.getNumberOfGhisues());
-                    System.out.println("a size " +a.size());
-                    int t1 = 0;
-                    for (int i = 1; i <= b1.getNumberOfGhisues(); i++) {
-                        Random rand = new Random();
-                        int rand1;
-                        while (a.size() - (rand1 = rand.nextInt(nr - t1)+1) < nr - i) {
+                    if (nr <= a.size()) {
+                        b1.setNumberOfGhisues(nr);
+                        System.out.println(a);
+                        System.out.println("nr ghisee " + b1.getNumberOfGhisues());
+                        System.out.println("a size " + a.size());
+                        int t1 = 0;
+                        for (int i = 1; i <= b1.getNumberOfGhisues(); i++) {
+                            Random rand = new Random();
+                            int rand1;
+                            while (a.size() - (rand1 = rand.nextInt(nr - t1) + 1) < nr - i) {
 
-                            continue;
-                        }
-                        t1 = rand1;
-                        System.out.println("rand1 " +rand1);
-                        ArrayList<Act> a5 = new ArrayList<>();
-                        for (int j = 0; j < rand1; j++) {
-                            int r;
-                            r = rand.nextInt(a.size());
-                            System.out.println("r dandom " + r);
-                            a5.add(a.get(r));
-                           // System.out.println("a get r " + a.get(r));
-                            a.remove(r);
-                            System.out.println("size a " + a.size());
-                        }
+                                continue;
+                            }
+                            t1 = rand1;
+                            System.out.println("rand1 " + rand1);
+                            ArrayList<Act> a5 = new ArrayList<>();
+                            for (int j = 0; j < rand1; j++) {
+                                int r;
+                                r = rand.nextInt(a.size());
+                                System.out.println("r dandom " + r);
+                                a5.add(a.get(r));
+                                // System.out.println("a get r " + a.get(r));
+                                a.remove(r);
+                                System.out.println("size a " + a.size());
+                            }
 
-                        // Generate random integers in range 0 to 999
-                       System.out.println(a5);
-                        Ghiseu g1 = new Ghiseu(true, null, a5);
+                            // Generate random integers in range 0 to 999
+
+                            //System.out.println(a5);
+                            Ghiseu g1 = new Ghiseu(true, "Ghiseu" + i, null, a5);
+                            gs.add(g1);
+                        }
+                        b1.setGhiseus(gs);
+                        System.out.println(b1.toString());
+                    } else {
+                        System.out.println("Number of acts < number of ghisee \n");
                     }
-                    b1.setGhiseus(null);
-
                     break;
                 case 3:
-
-                    System.out.println(3);
+                    Simulation.startSimulation(b1);
                     break;
                 case 4:
-                    System.out.println(b1.getName());
-                    break;
-                case 5:
-                    System.out.println(5);
-                    //System.exit(0);
                     t = false;
                     break;
             }
             clrscr();
-
         }
     }
 

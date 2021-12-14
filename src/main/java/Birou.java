@@ -37,4 +37,13 @@ public class Birou {
     public void setGhiseus(List<Ghiseu> ghiseus) {
         this.ghiseus = ghiseus;
     }
+
+    @Override
+    public String toString() {
+        return "Birou{" +
+                "name='" + name + '\'' +
+                ", numberOfGhisues=" + numberOfGhisues +
+                ", ghiseus=" + ghiseus +
+                '}';
+    }
 }

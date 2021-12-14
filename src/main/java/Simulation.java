@@ -1,6 +1,6 @@
 public class Simulation {
 
-    public static void startSimulation(){
+    public static void startSimulation(Birou b){
 
 
 

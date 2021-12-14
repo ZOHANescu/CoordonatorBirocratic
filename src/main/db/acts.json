@@ -1,47 +1,11 @@
 [
   {
-    "name": "ana1",
-    "time": 30,
+    "name": "act1",
+    "time": 45,
     "map": [
-      "alina",
-      "diana",
-      "maria"
-    ]
-  },
-  {
-    "name": "ana2",
-    "time": 30,
-    "map": [
-      "alina",
-      "diana",
-      "maria"
-    ]
-  },
-  {
-    "name": "ana3",
-    "time": 30,
-    "map": [
-      "alina",
-      "diana",
-      "maria"
-    ]
-  },
-  {
-    "name": "ana4",
-    "time": 30,
-    "map": [
-      "alina",
-      "diana",
-      "maria"
-    ]
-  },
-  {
-    "name": "ana5",
-    "time": 30,
-    "map": [
-      "alina",
-      "diana",
-      "maria"
+      "act0",
+      "act3",
+      "act5"
     ]
   }
 ]
