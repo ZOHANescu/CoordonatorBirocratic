@@ -6,7 +6,6 @@ import java.util.concurrent.*;
 
 public class Menu {
     public volatile static Birou b1 = new Birou(null, null, 0);
-    public static List<Ghiseu> gs = new ArrayList<>();
     public static boolean t = true;
     public static  void clrscr() {
         try {
@@ -53,6 +52,11 @@ public class Menu {
                     ClientsServices.addAct(str1, l1, time);
                     break;
                 case 2:
+                    List<Ghiseu> gs = new ArrayList<>();
+                    b1.setGhiseus(gs);
+                    b1.setName(null);
+                    //gs.clear();
+                    //b1.setNumberOfGhisues(0);
                     Scanner sc = new Scanner(System.in);
                     System.out.println("Tape ur birou name");
                     String b = sc.nextLine();
@@ -102,7 +106,11 @@ public class Menu {
                         b1.setGhiseus(gs);
                         System.out.println("birou "+ b1);
                     } else {
+                        clrscr();
                         System.out.println("Number of acts < number of ghisee \n");
+                        System.out.println("Press any key to continue..");
+                        Scanner sc18 = new Scanner(System.in);
+                        String b18 = sc18.nextLine();
                     }
                     break;
                 case 3:
