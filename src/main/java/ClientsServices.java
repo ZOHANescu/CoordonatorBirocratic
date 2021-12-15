@@ -11,7 +11,7 @@ import static java.lang.Object.*;
 public class ClientsServices {
 
         private static JSONArray actList = new JSONArray();
-        private static ArrayList<Act> acts = new ArrayList<>();
+        private volatile static ArrayList<Act> acts = new ArrayList<>();
 
 
         public static void  loadActsFromFile()  {
@@ -33,7 +33,7 @@ public class ClientsServices {
 
         }
 
-        public static ArrayList<Act> read1 () {
+        public synchronized static ArrayList<Act> read1 () {
             acts.clear();
             JSONParser parser1 = new JSONParser();
 
@@ -58,7 +58,7 @@ public class ClientsServices {
             return acts;
         }
 
-        public static void  addAct(String name, List<String> map, int time)  {
+        public  static void  addAct(String name, List<String> map, int time)  {
 
             loadActsFromFile();
             read1();

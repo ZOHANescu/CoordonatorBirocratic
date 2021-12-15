@@ -1,9 +1,10 @@
 public class Simulation {
 
-    public static void startSimulation(Birou b)  {
+    public static synchronized   void startSimulation(Birou b)  {
         boolean flag = true;
         System.out.println(b.getName());
         for (int i = 0; i < b.getNumberOfGhisues(); i++) {
+
             Ghiseu g = b.getGhiseus().get(i);
             //System.out.println(g);
             if (!g.getClients().isEmpty()) {

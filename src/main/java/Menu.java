@@ -2,14 +2,13 @@ import java.io.IOException;
 import java.util.Scanner;
 import java.util.*;
 import java.lang.*;
-
+import java.util.concurrent.*;
 
 public class Menu {
-    public static Birou b1 = new Birou(null, null, 0);
+    public volatile static Birou b1 = new Birou(null, null, 0);
     public static List<Ghiseu> gs = new ArrayList<>();
     public static boolean t = true;
-
-    public static void clrscr() {
+    public static  void clrscr() {
         try {
             if (System.getProperty("os.name").contains("Windows"))
 
@@ -20,7 +19,7 @@ public class Menu {
         }
     }
 
-    public synchronized static void menu() throws IOException {
+    public synchronized static void menu() throws IOException, InterruptedException {
 
         while (t) {
             System.out.println("Meniu\n");
@@ -90,14 +89,14 @@ public class Menu {
                             Ghiseu g1 = new Ghiseu(true, "Ghiseu" + i, actes1, a5);
                             System.out.println("ghiseu "+ g1);
                             gs.add(g1);
-                            gh = i+1;
+
                         }
                         ArrayList<Act> a4 = new ArrayList<>();
                         System.out.println("new a " +a);
                         a4.addAll(a);
                         ArrayList<Client> actessss = new ArrayList<>();
                         System.out.println("last act " + a4);
-                        Ghiseu g2 = new Ghiseu(true, "Ghiseu" + gh, actessss, a4);
+                        Ghiseu g2 = new Ghiseu(true, "Ghiseu" + b1.getNumberOfGhisues(), actessss, a4);
                         System.out.println(g2);
                         gs.add(g2);
                         b1.setGhiseus(gs);
@@ -107,18 +106,32 @@ public class Menu {
                     }
                     break;
                 case 3:
-                    Act ac1 = new Act("dracu",null,23);
-                    Client c1 = new Client();
-                    Client c2 = new Client();
-                    Client c3 = new Client();
-                    Client c4 = new Client();
-
-                    c1.start();
-                    c2.start();
-
-                    c3.start();
-                    c4.start();
-
+                    Scanner sc1 = new Scanner(System.in);
+                    System.out.println("Number of clients");
+                    int numberC = sc1.nextInt();
+                    Semaphore sem = new Semaphore(1);
+                    List<Client> list = new ArrayList<>();
+                    for (int i = 0; i < numberC; i++) {
+                        list.add(new Client(sem));
+                        //list.get(i).start();
+                        //list.get(i).join();
+                    }
+                    for (int i = 0; i <numberC; i++) {
+                        list.get(i).start();
+                    }
+                    for (int i = 0; i <numberC; i++) {
+                        list.get(i).join();
+                    }
+                   // c1.start();
+                   // c2.start();
+                    //c1.join();
+                   // c2.join();
+                    //c3.start();
+                   //c3.join();
+                    //c4.start();
+                    //c4.join();
+                   // while(c1.isAlive() || c2.isAlive() || c3.isAlive() || c4.isAlive());
+                    Thread.sleep(5000);
                    // Simulation.startSimulation(b1);
                     break;
                 case 4:

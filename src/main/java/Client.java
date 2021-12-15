@@ -2,44 +2,68 @@ import java.lang.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.*;
 
 public class Client extends Thread {
     private Act wAct;
     private boolean hAct = false;
+    public Semaphore sem;
 
-
-    public void searchAct(Act act11) throws InterruptedException {
-        System.out.println(1);
-        System.out.println("Size " + act11.getMap().size());
+    public synchronized void searchAct(Act act11) throws InterruptedException {
+        // System.out.println(1);
+        //Thread.sleep(500);
+        // System.out.println("Size " + act11.getMap().size());
+        //wait(500);
         if (act11.getMap().isEmpty()) {
-            System.out.println(3);
+            // System.out.println(3);
+           // wait(1000);
             for (int j = 0; j < Menu.b1.getNumberOfGhisues(); j++) {
-                System.out.println(4);
+                //System.out.println(4);
+               // wait(200);
                 for (int k = 0; k < Menu.b1.getGhiseus().get(j).getActs().size(); k++) {
-                    System.out.println(5);
+                    //System.out.println(5);
+                    //wait(200);
+                    //System.out.println("actul k " +Menu.b1.getGhiseus().get(j).getActs().get(k));
                     if (Menu.b1.getGhiseus().get(j).getActs().get(k).getName().equals(act11.getName())) {
 
                         Menu.b1.getGhiseus().get(j).getClients().add(this);
-                        Menu.clrscr();
-                        Simulation.startSimulation(Menu.b1);
-                        while (Menu.b1.getGhiseus().get(j).getClients().get(0) != this) ;
-                        Thread.sleep(act11.getTime() *100 );
+                        try {
+                            sem.acquire();
+                            Menu.clrscr();
+                            Simulation.startSimulation(Menu.b1);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        sem.release();
+                        Thread.sleep(20);
+                        while (Menu.b1.getGhiseus().get(j).getClients().get(0) != this) ; //{System.out.print("");}
+                        wait(20*act11.getTime());
                         Menu.b1.getGhiseus().get(j).getClients().remove(0);
-                        Menu.clrscr();
-                        Simulation.startSimulation(Menu.b1);
-                        Menu.clrscr();
+
+                        try {
+                            sem.acquire();
+                            Menu.clrscr();
+                            Simulation.startSimulation(Menu.b1);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        sem.release();
+                       // Thread.sleep(20);
+
                     }
+
                 }
+               //Thread.sleep(20);
             }
         } else {
             ArrayList<Act> a10 = ClientsServices.read1();
-            System.out.println("a10" + a10.toString());
+            //System.out.println("a10" + a10.toString());
             for (int j = 0; j < act11.getMap().size(); j++) {
-                System.out.println("a11");
+                //System.out.println("a11");
                 for (int k = 0; k < a10.size(); k++) {
-                    System.out.println("a12");
+                    //System.out.println("a12");
                     if (act11.getMap().get(j).equals(a10.get(k).getName())) {
-                        System.out.println("A13");
+                        //System.out.println("A13");
                         searchAct(a10.get(k));
                     }
                 }
@@ -48,23 +72,24 @@ public class Client extends Thread {
         }
 
 
-
-    hAct =true;
-}
+        hAct = true;
+    }
 
 
     public void run() {
-        System.out.println("Act run " + wAct.toString());
-        while (!hAct) {
-        try {
-            searchAct(wAct);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        //System.out.println("Act run " + wAct.toString());
+        //while (!hAct) {
+        synchronized (this) {
+            try {
+                searchAct(wAct);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            //}
         }
     }
 
-    public Client() {
+    public Client(Semaphore sem) {
         Random rand = new Random();
         ArrayList<Act> a10 = ClientsServices.read1();
         System.out.println(a10.toString());
@@ -72,6 +97,7 @@ public class Client extends Thread {
         System.out.println("random " + i);
         wAct = a10.get(i);
         System.out.println(wAct.toString());
+        this.sem= sem;
     }
 
     public Act getwAct() {
