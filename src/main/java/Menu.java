@@ -18,7 +18,7 @@ public class Menu {
         }
     }
 
-    public synchronized static void menu() throws IOException, InterruptedException {
+    public  static void menu() throws IOException, InterruptedException {
 
         while (t) {
             System.out.println("Meniu\n");
@@ -64,21 +64,21 @@ public class Menu {
                     System.out.println("Enter number of ghiseus");
                     int nr = sc.nextInt();
                     ArrayList<Act> a = ClientsServices.read1();
-                    System.out.println("A "+ a);
+                   // System.out.println("A "+ a);
                     if (nr <= a.size()) {
                         b1.setNumberOfGhisues(nr);
                         int t1 = 0;
                         int gh=0 ;
-                        System.out.println(" nr ghis " + b1.getNumberOfGhisues());
+                        //System.out.println(" nr ghis " + b1.getNumberOfGhisues());
                         for (int i = 1; i < b1.getNumberOfGhisues(); i++) {
                             Random rand = new Random();
                             int rand1;
 
-                            System.out.println("size a " + a.size());
+                            //System.out.println("size a " + a.size());
                             while (a.size() - (rand1 = rand.nextInt(a.size())+1) < nr - i) {
                                 continue;
                             }
-                            System.out.println("rand 1 " + rand1);
+                            //System.out.println("rand 1 " + rand1);
                             t1 = rand1;
                             ArrayList<Act> a5 = new ArrayList<>();
                             for (int j = 0; j < rand1; j++) {
@@ -87,24 +87,24 @@ public class Menu {
                                 a5.add(a.get(r));
                                 a.remove(r);
                             }
-                            System.out.println("New a "+ a);
-                            System.out.println("acte  " + a5);
+                            //System.out.println("New a "+ a);
+                           // System.out.println("acte  " + a5);
                             ArrayList<Client> actes1 = new ArrayList<>();
                             Ghiseu g1 = new Ghiseu(true, "Ghiseu" + i, actes1, a5);
-                            System.out.println("ghiseu "+ g1);
+                           // System.out.println("ghiseu "+ g1);
                             gs.add(g1);
 
                         }
                         ArrayList<Act> a4 = new ArrayList<>();
-                        System.out.println("new a " +a);
+                        //System.out.println("new a " +a);
                         a4.addAll(a);
                         ArrayList<Client> actessss = new ArrayList<>();
-                        System.out.println("last act " + a4);
+                        //System.out.println("last act " + a4);
                         Ghiseu g2 = new Ghiseu(true, "Ghiseu" + b1.getNumberOfGhisues(), actessss, a4);
-                        System.out.println(g2);
+                       // System.out.println(g2);
                         gs.add(g2);
                         b1.setGhiseus(gs);
-                        System.out.println("birou "+ b1);
+                       // System.out.println("birou "+ b1);
                     } else {
                         clrscr();
                         System.out.println("Number of acts < number of ghisee \n");
@@ -120,7 +120,7 @@ public class Menu {
                     Semaphore sem = new Semaphore(1);
                     List<Client> list = new ArrayList<>();
                     for (int i = 0; i < numberC; i++) {
-                        list.add(new Client(sem));
+                        list.add(new Client(sem,"Client"+i));
                         //list.get(i).start();
                         //list.get(i).join();
                     }
@@ -130,17 +130,7 @@ public class Menu {
                     for (int i = 0; i <numberC; i++) {
                         list.get(i).join();
                     }
-                   // c1.start();
-                   // c2.start();
-                    //c1.join();
-                   // c2.join();
-                    //c3.start();
-                   //c3.join();
-                    //c4.start();
-                    //c4.join();
-                   // while(c1.isAlive() || c2.isAlive() || c3.isAlive() || c4.isAlive());
-                    Thread.sleep(5000);
-                   // Simulation.startSimulation(b1);
+
                     break;
                 case 4:
                     t = false;

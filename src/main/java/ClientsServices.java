@@ -19,7 +19,7 @@ public class ClientsServices {
             Object p;
             JSONParser parser = new JSONParser();
             try{
-                FileReader readFile = new FileReader("C:\\Users\\madal\\IdeaProjects\\ggggg\\src\\main\\db\\acts.json");
+                FileReader readFile = new FileReader("D:\\ggggg\\src\\main\\db\\acts.json");
                 BufferedReader read = new BufferedReader(readFile);
                 p = parser.parse(read);
                 if(p instanceof JSONArray)
@@ -37,7 +37,7 @@ public class ClientsServices {
             acts.clear();
             JSONParser parser1 = new JSONParser();
 
-            try (FileReader reader = new FileReader("C:\\Users\\madal\\IdeaProjects\\ggggg\\src\\main\\db\\acts.json")) {
+            try (FileReader reader = new FileReader("D:\\ggggg\\src\\main\\db\\acts.json")) {
                 JSONArray jsonArray = (JSONArray) parser1.parse(reader);
 
                 Iterator<JSONObject> it = jsonArray.iterator();
@@ -73,7 +73,7 @@ public class ClientsServices {
             actList.add(act);
             System.out.println("json " + actList);
 
-            try (FileWriter file = new FileWriter("C:\\Users\\madal\\IdeaProjects\\ggggg\\src\\main\\db\\acts.json")) {
+            try (FileWriter file = new FileWriter("D:\\ggggg\\src\\main\\db\\acts.json")) {
                 file.write(actList.toString());
                 file.flush();
 

@@ -1,0 +1,1 @@
+D:\Downloads\kafka_2.12-2.8.1\bin\windows\kafka-console-consumer.bat --bootstrap-server localhost:9092 --topic hello-producer --from-beginning

@@ -17,8 +17,8 @@ public class Main {
         ClientsServices.addAct("ana",ac1,30);
 
 */
-        //Menu.menu();
-        Kafka.notifyServer();
+        Menu.menu();
+
 
     }
 }

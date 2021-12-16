@@ -4,10 +4,11 @@ import java.util.concurrent.Semaphore;
 
 public class Client extends Thread {
     private Act wAct;
+    private String name;
     private boolean hAct = false;
     public Semaphore sem;
 
-    public synchronized void searchAct(Act act11) throws InterruptedException {
+    public  void searchAct(Act act11) throws InterruptedException {
         // System.out.println(1);
         //Thread.sleep(500);
         // System.out.println("Size " + act11.getMap().size());
@@ -71,6 +72,7 @@ public class Client extends Thread {
 
 
         hAct = true;
+
     }
 
 
@@ -83,11 +85,26 @@ public class Client extends Thread {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            //}
+            try {
+                sem.acquire();
+                if(hAct){
+                    Kafka.notifyServer(name);
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            sem.release();
+
+            try {
+                Thread.sleep(20);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
         }
     }
 
-    public Client(Semaphore sem) {
+    public Client(Semaphore sem,String name ) {
         Random rand = new Random();
         ArrayList<Act> a10 = ClientsServices.read1();
         System.out.println(a10.toString());
@@ -96,6 +113,7 @@ public class Client extends Thread {
         wAct = a10.get(i);
         System.out.println(wAct.toString());
         this.sem= sem;
+        this.name = name;
     }
 
     public Act getwAct() {

@@ -10,38 +10,27 @@ import java.util.Properties;
 
 public class Kafka {
 
-
-    /**
-     * A Kafka producer that sends numEvents (# of messages) to a given topicName
-     *
-     * @author prashant
-     * @author www.learningjournal.guru
-     */
-    public final static String applicationID = "HelloProducer";
+    public final static String applicationID = "ggggg";
     public final static String bootstrapServers = "localhost:9092,localhost:9093";
     public final static String topicName = "hello-producer";
-    public final static int numEvents = 10;
+
     private static final Logger logger = LogManager.getLogger(Kafka.class);
 
-    public static void notifyServer() {
+    public static void notifyServer(String name) {
 
-        logger.info("Creating Kafka Producer...");
         Properties props = new Properties();
         props.put(ProducerConfig.CLIENT_ID_CONFIG, applicationID);
         props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
         props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, IntegerSerializer.class.getName());
         props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
-
         KafkaProducer<Integer, String> producer = new KafkaProducer<>(props);
 
-        logger.info("Start sending messages...");
-        for (int i = 1; i <= numEvents; i++) {
-            producer.send(new ProducerRecord<>(topicName, i, "Simple Message-" + i));
+        try {
+            producer.send(new ProducerRecord<>(topicName, 1, "Act recived " + name));
+        } catch (Exception e) {
+
         }
-
-        logger.info("Finished - Closing Kafka Producer.");
-        producer.close();
-
+        //producer.close();
     }
 }
 

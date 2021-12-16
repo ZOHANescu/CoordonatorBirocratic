@@ -1,1 +1,0 @@
-kafka-server-start.bat C:\Program Files\kafka_2.12-3.0.0\config\server.properties
