@@ -23,7 +23,7 @@ public class Menu {
         while (t) {
             System.out.println("Meniu\n");
             System.out.println("1.Add act\n");
-            System.out.println("2.Setup Birou\n");
+            System.out.println("2.Setup office\n");
             System.out.println("3.Start simulation\n");
             System.out.println("4.Exit\n");
 
@@ -63,6 +63,9 @@ public class Menu {
                     b1.setName(b);
                     System.out.println("Enter number of ghiseus");
                     int nr = sc.nextInt();
+                    System.out.println("Enter max queue");
+                    int qu = sc.nextInt();
+                    b1.setMaxQueueSize(qu);
                     ArrayList<Act> a = ClientsServices.read1();
                    // System.out.println("A "+ a);
                     if (nr <= a.size()) {
@@ -118,14 +121,16 @@ public class Menu {
                     System.out.println("Number of clients");
                     int numberC = sc1.nextInt();
                     Semaphore sem = new Semaphore(1);
+                    Semaphore sem1 = new Semaphore(1);
                     List<Client> list = new ArrayList<>();
                     for (int i = 0; i < numberC; i++) {
-                        list.add(new Client(sem,"Client"+i));
+                        list.add(new Client(sem,sem1,"Client"+i));
                         //list.get(i).start();
                         //list.get(i).join();
                     }
                     for (int i = 0; i <numberC; i++) {
                         list.get(i).start();
+                        list.get(i).setStartTime(System.currentTimeMillis());
                     }
                     for (int i = 0; i <numberC; i++) {
                         list.get(i).join();

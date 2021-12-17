@@ -5,6 +5,7 @@ public class Birou {
     private String name ;
     private int numberOfGhisues ;
     private List<Ghiseu> ghiseus  = new ArrayList<>();
+    private int maxQueueSize;
 
     public Birou(String name,List<Ghiseu> ghiseus,int nb) {
         this.name = name;
@@ -16,6 +17,14 @@ public class Birou {
     }
     public String getName() {
         return name;
+    }
+
+    public int getMaxQueueSize() {
+        return maxQueueSize;
+    }
+
+    public void setMaxQueueSize(int maxQueueSize) {
+        this.maxQueueSize = maxQueueSize;
     }
 
     public int getNumberOfGhisues() {

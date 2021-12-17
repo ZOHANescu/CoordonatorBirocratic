@@ -16,7 +16,7 @@ public class Kafka {
 
     private static final Logger logger = LogManager.getLogger(Kafka.class);
 
-    public static void notifyServer(String name) {
+    public static void notifyServer(String name,long time,String actName) {
 
         Properties props = new Properties();
         props.put(ProducerConfig.CLIENT_ID_CONFIG, applicationID);
@@ -26,9 +26,8 @@ public class Kafka {
         KafkaProducer<Integer, String> producer = new KafkaProducer<>(props);
 
         try {
-            producer.send(new ProducerRecord<>(topicName, 1, "Act recived " + name));
+            producer.send(new ProducerRecord<>(topicName, 1, name +" received " +actName + " in "+ time +" ms"));
         } catch (Exception e) {
-
         }
         //producer.close();
     }

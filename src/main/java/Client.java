@@ -7,27 +7,48 @@ public class Client extends Thread {
     private String name;
     private boolean hAct = false;
     public Semaphore sem;
+    public Semaphore sem1;
+    private long startTime;
+    private long endTime;
 
-    public  void searchAct(Act act11) throws InterruptedException {
+    public long getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(long endTime) {
+        this.endTime = endTime;
+    }
+
+    public long getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(long startTime) {
+        this.startTime = startTime;
+    }
+
+    public synchronized void searchAct(Act act11) throws InterruptedException {
         // System.out.println(1);
         //Thread.sleep(500);
         // System.out.println("Size " + act11.getMap().size());
         //wait(500);
         if (act11.getMap().isEmpty()) {
             // System.out.println(3);
-           // wait(1000);
+            //           // wait(1000);
             for (int j = 0; j < Menu.b1.getNumberOfGhisues(); j++) {
                 //System.out.println(4);
-               // wait(200);
+                // wait(200);
                 for (int k = 0; k < Menu.b1.getGhiseus().get(j).getActs().size(); k++) {
                     //System.out.println(5);
                     //wait(200);
                     //System.out.println("actul k " +Menu.b1.getGhiseus().get(j).getActs().get(k));
                     if (Menu.b1.getGhiseus().get(j).getActs().get(k).getName().equals(act11.getName())) {
-
-                        Menu.b1.getGhiseus().get(j).getClients().add(this);
+                        while(Menu.b1.getGhiseus().get(j).getClients().size() > 30){
+                            Thread.sleep(300);
+                        };
                         try {
                             sem.acquire();
+                            Menu.b1.getGhiseus().get(j).getClients().add(this);
                             Menu.clrscr();
                             Simulation.startSimulation(Menu.b1);
                         } catch (InterruptedException e) {
@@ -36,23 +57,23 @@ public class Client extends Thread {
                         sem.release();
                         Thread.sleep(20);
                         while (Menu.b1.getGhiseus().get(j).getClients().get(0) != this) ; //{System.out.print("");}
-                        wait(20*act11.getTime());
-                        Menu.b1.getGhiseus().get(j).getClients().remove(0);
+                        wait(20 * act11.getTime());
 
+                        Menu.b1.getGhiseus().get(j).getClients().remove(0);
                         try {
                             sem.acquire();
                             Menu.clrscr();
                             Simulation.startSimulation(Menu.b1);
+                            this.setEndTime(System.currentTimeMillis());
+                            Kafka.notifyServer(name, endTime - startTime, act11.getName());
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
                         sem.release();
-                       // Thread.sleep(20);
-
+                        // Thread.sleep(20);
                     }
-
                 }
-               //Thread.sleep(20);
+                //Thread.sleep(20);
             }
         } else {
             ArrayList<Act> a10 = ClientsServices.read1();
@@ -72,7 +93,7 @@ public class Client extends Thread {
 
 
         hAct = true;
-
+        this.setEndTime(System.currentTimeMillis());
     }
 
 
@@ -85,16 +106,9 @@ public class Client extends Thread {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            try {
-                sem.acquire();
-                if(hAct){
-                    Kafka.notifyServer(name);
-                }
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+            if (hAct) {
+                Kafka.notifyServer(name, endTime - startTime, wAct.getName());
             }
-            sem.release();
-
             try {
                 Thread.sleep(20);
             } catch (InterruptedException e) {
@@ -104,7 +118,7 @@ public class Client extends Thread {
         }
     }
 
-    public Client(Semaphore sem,String name ) {
+    public Client(Semaphore sem1, Semaphore sem, String name) {
         Random rand = new Random();
         ArrayList<Act> a10 = ClientsServices.read1();
         System.out.println(a10.toString());
@@ -112,8 +126,9 @@ public class Client extends Thread {
         System.out.println("random " + i);
         wAct = a10.get(i);
         System.out.println(wAct.toString());
-        this.sem= sem;
+        this.sem = sem;
         this.name = name;
+        this.sem1 = sem1;
     }
 
     public Act getwAct() {
