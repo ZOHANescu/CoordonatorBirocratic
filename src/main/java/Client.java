@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.Semaphore;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class Client extends Thread {
     private Act wAct;
@@ -10,6 +11,7 @@ public class Client extends Thread {
     public Semaphore sem1;
     private long startTime;
     private long endTime;
+    private ReentrantLock lock = new ReentrantLock(true);
 
     public long getEndTime() {
         return endTime;
@@ -43,12 +45,24 @@ public class Client extends Thread {
                     //wait(200);
                     //System.out.println("actul k " +Menu.b1.getGhiseus().get(j).getActs().get(k));
                     if (Menu.b1.getGhiseus().get(j).getActs().get(k).getName().equals(act11.getName())) {
-                        while(Menu.b1.getGhiseus().get(j).getClients().size() > 30){
-                            Thread.sleep(300);
-                        };
+                        boolean isQueueFull = true;
+
+                        while (isQueueFull) {
+                            lock.lock();
+                            try {
+                                if (Menu.b1.getGhiseus().get(j).getClients().size() >= Menu.b1.getMaxQueueSize()) {
+                                    wait(1000);
+                                } else {
+                                    Menu.b1.getGhiseus().get(j).getClients().add(this);
+                                    isQueueFull = false;
+                                }
+                            } finally {
+                                lock.unlock();
+                            }
+                        }
                         try {
                             sem.acquire();
-                            Menu.b1.getGhiseus().get(j).getClients().add(this);
+
                             Menu.clrscr();
                             Simulation.startSimulation(Menu.b1);
                         } catch (InterruptedException e) {
@@ -60,6 +74,7 @@ public class Client extends Thread {
                         wait(20 * act11.getTime());
 
                         Menu.b1.getGhiseus().get(j).getClients().remove(0);
+                        notify();
                         try {
                             sem.acquire();
                             Menu.clrscr();

@@ -28,6 +28,7 @@ public class Kafka {
         try {
             producer.send(new ProducerRecord<>(topicName, 1, name +" received " +actName + " in "+ time +" ms"));
         } catch (Exception e) {
+
         }
         //producer.close();
     }
